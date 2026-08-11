@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Production build
+dist/
+dist-ssr/
+*.local
+
+# Large zip archives and temp raw PNG frames (WebP frames in public/frames are included)
+ALL_VIDEO_FRAMES_24FPS.zip
+frames_temp/
+*.png_temp
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

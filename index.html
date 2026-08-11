@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mansuri Mohammed Rushan — Web Developer & MCA Student</title>
+  <meta name="description" content="Portfolio of Mansuri Mohammed Rushan, MCA Student at Sardar Vallabhbhai Global University and Web Developer skilled in HTML, CSS, JavaScript, PHP, MySQL, Python, and Django.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- Preloader Screen -->
+  <div id="preloader">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <div class="loader-text-group">
+        <h1 class="loader-title">MANSURI MOHAMMED RUSHAN</h1>
+        <p class="loader-subtitle">Loading 24FPS Background Engine...</p>
+      </div>
+      <div class="progress-bar-container">
+        <div id="loader-progress-fill" class="progress-bar-fill"></div>
+      </div>
+      <div class="loader-status">
+        <span id="loader-percent">0%</span>
+        <span id="loader-frame-count">0 / 240 Frames</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Global Scroll Progress Line -->
+  <div id="scroll-progress-line"></div>
+
+  <!-- Background Fixed Canvas -->
+  <canvas id="scroll-canvas"></canvas>
+
+  <!-- Sticky Navbar Header -->
+  <header class="navbar glass-header">
+    <div class="nav-container">
+      <a href="#hero" class="nav-brand">
+        <span class="brand-name">MANSURI MOHAMMED RUSHAN</span>
+        <span class="brand-role">WEB DEVELOPER</span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="#about" class="nav-link">ABOUT</a>
+        <a href="#projects" class="nav-link">PROJECTS</a>
+        <a href="#skills" class="nav-link">SKILLS</a>
+        <a href="#contact" class="nav-link">CONTACT</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="status-badge" title="Current Status">
+          <span class="status-dot"></span>
+          <span class="status-text">OPEN TO OPPORTUNITIES</span>
+        </div>
+
+        <!-- HUD Engine Controls -->
+        <div class="hud-controls">
+          <button id="btn-autoplay" class="hud-btn" title="Toggle Auto Scroll Demo">
+            <svg id="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            <svg id="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" class="hidden">
+              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+            </svg>
+            <span id="lbl-autoplay">Auto Scroll</span>
+          </button>
+
+          <button id="btn-fit-mode" class="hud-btn hud-btn-icon" title="Toggle Canvas Mode (Cover/Contain)">
+            <span id="lbl-fit-mode">Cover</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Hamburger Toggle -->
+      <button id="mobile-toggle" class="mobile-toggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="mobile-menu glass-panel">
+      <a href="#about" class="mobile-nav-link">ABOUT</a>
+      <a href="#projects" class="mobile-nav-link">PROJECTS</a>
+      <a href="#skills" class="mobile-nav-link">SKILLS</a>
+      <a href="#contact" class="mobile-nav-link">CONTACT</a>
+    </div>
+  </header>
+
+  <!-- Main Scrollable Content Overlay -->
+  <main class="content-wrapper">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-section">
+      <div class="hero-bg-text">RUSHAN</div>
+      
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="hero-badge-group">
+            <span class="pill-badge glow-pill">WEB DEVELOPER</span>
+            <span class="pill-badge mca-pill">MCA STUDENT</span>
+            <span class="pill-badge location-pill">📍 AHMEDABAD, INDIA</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="sub-greeting">Hello, I'm</span>
+            <span class="hero-name">MANSURI MOHAMMED RUSHAN</span>
+          </h1>
+
+          <p class="hero-description">
+            MCA student and aspiring Web Developer with a strong foundation in HTML, CSS, JavaScript, PHP, MySQL and Python/Django. I enjoy building practical web applications, learning new technologies, and solving real-world problems through software.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#projects" class="btn btn-primary">
+              <span>VIEW MY PROJECT</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </a>
+            <a href="#contact" class="btn btn-secondary">
+              <span>LET'S CONNECT</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Skills-Focused Highlights Grid -->
+          <div class="stats-grid">
+            <div class="stat-card glass-card">
+              <span class="stat-highlight-tag">CURRENT DEGREE</span>
+              <span class="stat-number-text">MCA STUDENT</span>
+              <span class="stat-label">SEMESTER 1 — SVGU</span>
+            </div>
+            <div class="stat-card glass-card">
+              <span class="stat-highlight-tag">CORE FOCUS</span>
+              <span class="stat-number-text">WEB DEVELOPMENT</span>
+              <span class="stat-label">HTML, CSS, JS, PHP, MYSQL</span>
+            </div>
+            <div class="stat-card glass-card">
+              <span class="stat-highlight-tag">CERTIFIED COURSE</span>
+              <span class="stat-number-text">PYTHON / DJANGO</span>
+              <span class="stat-label">120-HOUR DEDICATED TRAINING</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section about-section">
+      <div class="section-container">
+        <div class="about-card glass-card">
+          <div class="about-grid">
+            
+            <div class="about-bio">
+              <span class="section-tag">BIOGRAPHY & BACKGROUND</span>
+              <h2 class="section-title">ABOUT ME</h2>
+              <p class="about-text">
+                I am currently pursuing a Master of Computer Applications (MCA) at Sardar Vallabhbhai Global University. I completed my Bachelor of Computer Applications (BCA) from Lokmanya College of BCA.
+              </p>
+              <p class="about-text">
+                I have a strong foundation in web development technologies including HTML, CSS, JavaScript, PHP and MySQL, along with Python and Django. I am interested in building practical web applications and continuously improving my development skills.
+              </p>
+
+              <div class="about-quick-info">
+                <div class="info-pill"><strong>Email:</strong> mansurimohammedrushan@gmail.com</div>
+                <div class="info-pill"><strong>Phone:</strong> +91 8128898585</div>
+                <div class="info-pill"><strong>Location:</strong> Ahmedabad, India</div>
+              </div>
+            </div>
+
+            <!-- Education Timeline -->
+            <div class="education-block">
+              <h3 class="block-subtitle">EDUCATION TIMELINE</h3>
+              
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <span class="timeline-date">2026 — PRESENT</span>
+                    <h4 class="timeline-title">Master of Computer Applications (MCA)</h4>
+                    <p class="timeline-institution">Sardar Vallabhbhai Global University</p>
+                    <span class="status-pill-small orange-pill">Semester 1 — Pursuing</span>
+                  </div>
+                </div>
+
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <span class="timeline-date">2023 — 2026</span>
+                    <h4 class="timeline-title">Bachelor of Computer Applications (BCA)</h4>
+                    <p class="timeline-institution">Lokmanya College of BCA</p>
+                    <span class="status-pill-small green-pill">Completed</span>
+                  </div>
+                </div>
+
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <span class="timeline-date">2022 — 2023</span>
+                    <h4 class="timeline-title">Higher Secondary Education</h4>
+                    <p class="timeline-institution">Gujarat Board</p>
+                    <span class="status-pill-small green-pill">Cleared</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="section projects-section">
+      <div class="section-container">
+        <div class="section-header">
+          <div>
+            <span class="section-tag">ACADEMIC PROJECT SHOWCASE</span>
+            <h2 class="section-title">FEATURED PROJECT</h2>
+          </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid single-project-grid">
+          
+          <!-- Project: SOFALOOM -->
+          <article class="project-card glass-card featured-academic-card">
+            <div class="project-image-wrapper">
+              <img src="/images/sofaloom.png" alt="SOFALOOM Sofa Fabric E-Commerce Website" class="project-img">
+              <div class="project-overlay">
+                <button id="btn-view-sofaloom" class="btn-view-modal">VIEW ACADEMIC PROJECT ↗</button>
+              </div>
+            </div>
+            
+            <div class="project-info">
+              <div class="project-meta">
+                <span class="project-category">E-COMMERCE WEBSITE</span>
+                <span class="project-year">2026</span>
+              </div>
+              <h3 class="project-title">SOFALOOM</h3>
+              <p class="project-desc">
+                Full-featured e-commerce website developed for selling sofa fabrics online as a final-year group project. Designed to streamline online fabric browsing and order placement.
+              </p>
+
+              <div class="project-feature-highlights">
+                <h4 class="highlights-title">KEY HIGHLIGHTS:</h4>
+                <ul class="highlights-list">
+                  <li>✔ Product listing and catalog browsing</li>
+                  <li>✔ Database-driven product storage</li>
+                  <li>✔ Database-driven order management</li>
+                  <li>✔ Front-end user interface development</li>
+                  <li>✔ Backend PHP & MySQL database administration</li>
+                  <li>✔ Team collaboration, testing & deployment</li>
+                </ul>
+              </div>
+
+              <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">PHP</span>
+                <span class="tag">MySQL</span>
+                <span class="tag tag-academic">ACADEMIC PROJECT</span>
+              </div>
+
+              <div class="project-card-actions">
+                <button id="btn-open-modal-card" class="btn btn-primary btn-sm">
+                  <span>VIEW PROJECT DETAILS</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL SKILLS SECTION -->
+    <section id="skills" class="section skills-section">
+      <div class="section-container">
+        <div class="section-header">
+          <div>
+            <span class="section-tag">MY STACK & TOOLS</span>
+            <h2 class="section-title">TECHNICAL SKILLS</h2>
+          </div>
+        </div>
+
+        <div class="skills-category-grid">
+          
+          <!-- Web Development -->
+          <div class="skill-category-card glass-card">
+            <div class="category-icon">🌐</div>
+            <h3 class="category-title">WEB DEVELOPMENT</h3>
+            <div class="skills-pills">
+              <span class="skill-pill active">HTML</span>
+              <span class="skill-pill active">CSS</span>
+              <span class="skill-pill active">JavaScript</span>
+            </div>
+          </div>
+
+          <!-- Backend & Database -->
+          <div class="skill-category-card glass-card">
+            <div class="category-icon">⚙️</div>
+            <h3 class="category-title">BACKEND & DATABASE</h3>
+            <div class="skills-pills">
+              <span class="skill-pill active">PHP</span>
+              <span class="skill-pill active">MySQL</span>
+              <span class="skill-pill active">Python</span>
+              <span class="skill-pill active">Django</span>
+            </div>
+          </div>
+
+          <!-- Productivity Tools -->
+          <div class="skill-category-card glass-card">
+            <div class="category-icon">📊</div>
+            <h3 class="category-title">PRODUCTIVITY</h3>
+            <div class="skills-pills">
+              <span class="skill-pill">MS Word</span>
+              <span class="skill-pill">MS Excel</span>
+              <span class="skill-pill">MS PowerPoint</span>
+            </div>
+          </div>
+
+          <!-- Certifications -->
+          <div class="skill-category-card glass-card highlight-cert-card">
+            <div class="category-icon">🎓</div>
+            <h3 class="category-title">CERTIFICATION</h3>
+            <div class="cert-info">
+              <h4 class="cert-name">Python with Django</h4>
+              <p class="cert-detail">120-Hour Certified Course</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- MY LEARNING & DEVELOPMENT APPROACH SECTION -->
+    <section id="process" class="section process-section">
+      <div class="section-container">
+        <div class="section-header">
+          <div>
+            <span class="section-tag">METHODOLOGY</span>
+            <h2 class="section-title">MY LEARNING & DEVELOPMENT APPROACH</h2>
+          </div>
+        </div>
+
+        <div class="process-grid-4">
+          
+          <div class="process-card glass-card">
+            <div class="process-num">01</div>
+            <div class="process-body">
+              <h3 class="process-title">UNDERSTAND</h3>
+              <p class="process-desc">Understand the project requirements and goals thoroughly before writing code.</p>
+            </div>
+          </div>
+
+          <div class="process-card glass-card">
+            <div class="process-num">02</div>
+            <div class="process-body">
+              <h3 class="process-title">PLAN</h3>
+              <p class="process-desc">Plan the structure, user interface flow, features, and database requirements.</p>
+            </div>
+          </div>
+
+          <div class="process-card glass-card">
+            <div class="process-num">03</div>
+            <div class="process-body">
+              <h3 class="process-title">DEVELOP</h3>
+              <p class="process-desc">Build the application using appropriate web technologies with clean, organized code.</p>
+            </div>
+          </div>
+
+          <div class="process-card glass-card">
+            <div class="process-num">04</div>
+            <div class="process-body">
+              <h3 class="process-title">TEST & IMPROVE</h3>
+              <p class="process-desc">Test functionality, fix issues, optimize performance, and improve the user experience.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section contact-section">
+      <div class="section-container">
+        <div class="contact-card glass-card">
+          
+          <div class="contact-header">
+            <span class="section-tag">GET IN TOUCH</span>
+            <h2 class="contact-title">LET'S WORK TOGETHER</h2>
+            <p class="contact-subtitle">
+              I'm currently pursuing MCA and looking for opportunities to grow in software and web development. I'm open to learning, collaborating and working on practical projects.
+            </p>
+          </div>
+
+          <!-- Email Box with Real Mailto Action Button -->
+          <div class="email-box glass-card">
+            <span class="email-label">DIRECT EMAIL ADDRESS</span>
+            <div class="email-row">
+              <span id="email-address" class="email-text">mansurimohammedrushan@gmail.com</span>
+              <div class="email-actions-group">
+                <a href="mailto:mansurimohammedrushan@gmail.com" class="btn btn-primary btn-sm">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                  <span>EMAIL ME</span>
+                </a>
+                <button id="btn-copy-email" class="btn btn-secondary btn-sm" title="Copy Email">
+                  <span>COPY</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Details Grid -->
+          <div class="contact-footer-grid">
+            <div class="contact-info-item">
+              <span class="info-label">PHONE NUMBER</span>
+              <a href="tel:+918128898585" class="info-link-val">+91 8128898585</a>
+            </div>
+
+            <div class="contact-info-item">
+              <span class="info-label">LOCATION</span>
+              <span class="info-val">📍 Ahmedabad, India</span>
+            </div>
+
+            <div class="contact-info-item">
+              <span class="info-label">STATUS</span>
+              <span class="info-val orange-text">● MCA Student / Aspiring Web Developer</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-brand-info">
+          <span class="footer-name">MANSURI MOHAMMED RUSHAN</span>
+          <span class="footer-role">WEB DEVELOPER | MCA STUDENT</span>
+        </div>
+        <p class="footer-copy">© 2026 MANSURI MOHAMMED RUSHAN. ALL RIGHTS RESERVED.</p>
+        <a href="#hero" class="back-to-top" title="Back to Top">
+          <span>BACK TO TOP</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+          </svg>
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Project Detail Case Study Modal Overlay -->
+  <div id="project-modal" class="modal-overlay">
+    <div class="modal-card glass-card">
+      <button id="modal-close" class="modal-close-btn">&times;</button>
+      
+      <div class="modal-body">
+        <img id="modal-img" src="/images/sofaloom.png" alt="SOFALOOM Academic Project Preview" class="modal-hero-img">
+        <div class="modal-content">
+          <span id="modal-category" class="project-category">E-COMMERCE WEBSITE — ACADEMIC PROJECT</span>
+          <h2 id="modal-title" class="modal-title">SOFALOOM</h2>
+          <p id="modal-desc" class="modal-description">
+            Full-featured e-commerce website developed for selling sofa fabrics online as a final-year group project. Built to provide a smooth catalog browsing experience, product database management, and order tracking.
+          </p>
+
+          <div class="modal-details-section">
+            <h4 class="modal-details-subtitle">DEVELOPMENT HIGHLIGHTS:</h4>
+            <ul id="modal-highlights-list" class="modal-highlights-list">
+              <li>Product listing and search functionality</li>
+              <li>Database-driven product storage & inventory</li>
+              <li>Database-driven order information management</li>
+              <li>Responsive front-end development (HTML/CSS/JS)</li>
+              <li>Backend PHP scripting & MySQL relational database</li>
+              <li>Team collaboration, testing, and UI optimization</li>
+            </ul>
+          </div>
+
+          <div id="modal-tags" class="project-tags margin-top-tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">PHP</span>
+            <span class="tag">MySQL</span>
+            <span class="tag tag-academic">ACADEMIC PROJECT</span>
+          </div>
+          
+          <div class="modal-actions">
+            <a href="mailto:mansurimohammedrushan@gmail.com" class="btn btn-primary">GET IN TOUCH ABOUT THIS PROJECT ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Popup -->
+  <div id="toast" class="toast glass-panel">Email copied to clipboard!</div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
