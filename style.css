@@ -1047,11 +1047,11 @@ body {
 
 .email-text {
   font-family: var(--font-mono);
-  font-size: clamp(1.9rem, 2vw, 2.8rem);
+  font-size: clamp(1.7rem, 2vw, 2.6rem);
   font-weight: 700;
   color: #fff;
   word-break: break-all;
-  line-height: 1.25;
+  line-height: 1.2;
   flex: 1 1 auto;
   text-align: left;
 }
@@ -1066,7 +1066,7 @@ body {
 }
 
 .email-btn,
-.copy-btn {
+.call-btn {
   min-height: 58px;
   padding: 0 28px;
   font-size: 1rem;
@@ -1078,17 +1078,12 @@ body {
   min-width: 180px;
 }
 
-.copy-btn {
-  min-width: 120px;
+.call-btn {
+  min-width: 130px;
   justify-content: center;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--border-color);
   color: var(--text-main);
-}
-
-.copy-btn.copied {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .contact-footer-grid {
@@ -1137,9 +1132,6 @@ body {
   line-height: 1.5;
 }
 
-.info-link-val:hover {
-  color: var(--accent-orange);
-}
 .info-link-val:hover {
   color: var(--accent-orange);
 }

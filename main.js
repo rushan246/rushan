@@ -22,8 +22,6 @@ const scrollProgressLine = document.getElementById('scroll-progress-line');
 // Controls & Menu
 const mobileToggle = document.getElementById('mobile-toggle');
 const mobileMenu = document.getElementById('mobile-menu');
-const copyEmailBtn = document.getElementById('copy-email-btn');
-const emailAddress = 'mansurimohammedrushan@gmail.com';
 
 // Modal Elements
 const modal = document.getElementById('project-modal');
@@ -229,35 +227,6 @@ function initMobileMenu() {
   }
 }
 
-function initCopyEmailButton() {
-  if (!copyEmailBtn) return;
-
-  copyEmailBtn.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(emailAddress);
-      const originalText = copyEmailBtn.innerText;
-      copyEmailBtn.innerText = 'COPIED';
-      copyEmailBtn.classList.add('copied');
-      setTimeout(() => {
-        copyEmailBtn.innerText = originalText;
-        copyEmailBtn.classList.remove('copied');
-      }, 1400);
-    } catch (error) {
-      const tempInput = document.createElement('textarea');
-      tempInput.value = emailAddress;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempInput);
-
-      copyEmailBtn.innerText = 'COPIED';
-      setTimeout(() => {
-        copyEmailBtn.innerText = 'COPY';
-      }, 1400);
-    }
-  });
-}
-
 /**
  * Initialize Event Listeners
  */
@@ -274,7 +243,6 @@ async function init() {
   initEvents();
   initModal();
   initMobileMenu();
-  initCopyEmailButton();
 
   await preloadFrames();
 
