@@ -8,8 +8,6 @@ const state = {
   currentFrame: 0,
   targetFrame: 0,
   isLoaded: false,
-  isAutoPlaying: false,
-  autoPlaySpeed: 0.3,
   fitMode: 'cover',
 };
 
@@ -23,11 +21,8 @@ const loaderFrameCount = document.getElementById('loader-frame-count');
 const scrollProgressLine = document.getElementById('scroll-progress-line');
 
 // Controls & Menu
-const btnAutoPlay = document.getElementById('btn-autoplay');
 const btnFitMode = document.getElementById('btn-fit-mode');
 const lblFitMode = document.getElementById('lbl-fit-mode');
-const iconPlay = document.getElementById('icon-play');
-const iconPause = document.getElementById('icon-pause');
 const mobileToggle = document.getElementById('mobile-toggle');
 const mobileMenu = document.getElementById('mobile-menu');
 
@@ -36,11 +31,6 @@ const modal = document.getElementById('project-modal');
 const modalClose = document.getElementById('modal-close');
 const btnViewSofaloom = document.getElementById('btn-view-sofaloom');
 const btnOpenModalCard = document.getElementById('btn-open-modal-card');
-
-// Email Copy & Toast
-const btnCopyEmail = document.getElementById('btn-copy-email');
-const emailAddress = document.getElementById('email-address');
-const toast = document.getElementById('toast');
 
 /**
  * Preload 240 WebP Canvas Background Frames
@@ -154,9 +144,7 @@ function updateScrollPosition() {
 
   scrollProgressLine.style.width = `${scrollFraction * 100}%`;
 
-  if (!state.isAutoPlaying) {
-    state.targetFrame = scrollFraction * (TOTAL_FRAMES - 1);
-  }
+  state.targetFrame = scrollFraction * (TOTAL_FRAMES - 1);
 
   updateActiveNavLink();
 }
@@ -183,16 +171,6 @@ function updateActiveNavLink() {
  */
 function renderLoop() {
   if (state.isLoaded) {
-    if (state.isAutoPlaying) {
-      state.targetFrame += state.autoPlaySpeed;
-      if (state.targetFrame >= TOTAL_FRAMES - 1) {
-        state.targetFrame = 0;
-      }
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const targetScrollY = (state.targetFrame / (TOTAL_FRAMES - 1)) * maxScroll;
-      window.scrollTo({ top: targetScrollY, behavior: 'instant' });
-    }
-
     // Smooth Lerp Interpolation
     const lerpFactor = 0.08;
     const delta = state.targetFrame - state.currentFrame;
@@ -243,29 +221,6 @@ function closeModal() {
   document.body.style.overflow = 'auto';
 }
 
-/**
- * Copy Email to Clipboard & Toast Notification
- */
-function initCopyEmail() {
-  if (btnCopyEmail && emailAddress) {
-    btnCopyEmail.addEventListener('click', () => {
-      const email = emailAddress.textContent.trim();
-      navigator.clipboard.writeText(email).then(() => {
-        showToast('Email copied to clipboard!');
-      }).catch(() => {
-        showToast('Failed to copy email');
-      });
-    });
-  }
-}
-
-function showToast(msg) {
-  toast.textContent = msg;
-  toast.classList.add('active');
-  setTimeout(() => {
-    toast.classList.remove('active');
-  }, 3000);
-}
 
 /**
  * Mobile Navigation Drawer Toggle
@@ -291,26 +246,14 @@ function initEvents() {
   window.addEventListener('resize', resizeCanvas);
   window.addEventListener('scroll', updateScrollPosition, { passive: true });
 
-  // Auto-play Toggle
-  btnAutoPlay.addEventListener('click', () => {
-    state.isAutoPlaying = !state.isAutoPlaying;
-    if (state.isAutoPlaying) {
-      iconPlay.classList.add('hidden');
-      iconPause.classList.remove('hidden');
-      btnAutoPlay.classList.add('active');
-    } else {
-      iconPlay.classList.remove('hidden');
-      iconPause.classList.add('hidden');
-      btnAutoPlay.classList.remove('active');
-    }
-  });
-
   // Fit Mode Toggle
-  btnFitMode.addEventListener('click', () => {
-    state.fitMode = state.fitMode === 'cover' ? 'contain' : 'cover';
-    lblFitMode.textContent = state.fitMode === 'cover' ? 'Cover' : 'Contain';
-    drawFrame(Math.round(state.currentFrame));
-  });
+  if (btnFitMode) {
+    btnFitMode.addEventListener('click', () => {
+      state.fitMode = state.fitMode === 'cover' ? 'contain' : 'cover';
+      lblFitMode.textContent = state.fitMode === 'cover' ? 'Cover' : 'Contain';
+      drawFrame(Math.round(state.currentFrame));
+    });
+  }
 }
 
 /**
@@ -320,7 +263,6 @@ async function init() {
   resizeCanvas();
   initEvents();
   initModal();
-  initCopyEmail();
   initMobileMenu();
 
   await preloadFrames();

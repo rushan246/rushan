@@ -282,6 +282,27 @@ body {
   gap: 8px;
 }
 
+.scroll-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-main);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+
+.scroll-arrow {
+  color: var(--accent-orange);
+  font-size: 1rem;
+}
+
 .hud-btn {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-color);
@@ -1016,7 +1037,21 @@ body {
 
 .email-actions-group {
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.contact-information-heading {
+  margin: 0 auto 20px;
+  max-width: 680px;
+  text-align: left;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--accent-orange);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
 
 .contact-footer-grid {
