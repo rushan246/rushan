@@ -8,7 +8,6 @@ const state = {
   currentFrame: 0,
   targetFrame: 0,
   isLoaded: false,
-  fitMode: 'cover',
 };
 
 // DOM Elements
@@ -21,8 +20,6 @@ const loaderFrameCount = document.getElementById('loader-frame-count');
 const scrollProgressLine = document.getElementById('scroll-progress-line');
 
 // Controls & Menu
-const btnFitMode = document.getElementById('btn-fit-mode');
-const lblFitMode = document.getElementById('lbl-fit-mode');
 const mobileToggle = document.getElementById('mobile-toggle');
 const mobileMenu = document.getElementById('mobile-menu');
 
@@ -33,7 +30,8 @@ const btnViewSofaloom = document.getElementById('btn-view-sofaloom');
 const btnOpenModalCard = document.getElementById('btn-open-modal-card');
 
 // Contact form
-const CONTACT_FORM_ENDPOINT = import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'https://formsubmit.co/ajax/mansurimohammedrushan@gmail.com';
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '';
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 const contactForm = document.getElementById('contact-form');
 const formSubmitBtn = contactForm ? contactForm.querySelector('.submit-btn') : null;
 const formStatus = contactForm ? contactForm.querySelector('.form-status') : null;
@@ -109,31 +107,20 @@ function drawFrame(frameIndex) {
 
   let drawWidth, drawHeight;
 
-  if (state.fitMode === 'cover') {
-    if (viewportAspect > imgAspect) {
-      drawWidth = viewportWidth;
-      drawHeight = viewportWidth / imgAspect;
-    } else {
-      drawHeight = viewportHeight;
-      drawWidth = viewportHeight * imgAspect;
-    }
+  if (viewportAspect < imgAspect) {
+    drawWidth = viewportWidth;
+    drawHeight = viewportWidth / imgAspect;
   } else {
-    if (viewportAspect < imgAspect) {
-      drawWidth = viewportWidth;
-      drawHeight = viewportWidth / imgAspect;
-    } else {
-      drawHeight = viewportHeight;
-      drawWidth = viewportHeight * imgAspect;
-    }
+    drawHeight = viewportHeight;
+    drawWidth = viewportHeight * imgAspect;
   }
 
   const offsetX = (viewportWidth - drawWidth) / 2;
   const offsetY = (viewportHeight - drawHeight) / 2;
 
-  if (state.fitMode === 'contain') {
-    ctx.fillStyle = '#060608';
-    ctx.fillRect(0, 0, viewportWidth, viewportHeight);
-  }
+  ctx.clearRect(0, 0, viewportWidth, viewportHeight);
+  ctx.fillStyle = '#060608';
+  ctx.fillRect(0, 0, viewportWidth, viewportHeight);
 
   ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
 }
@@ -298,6 +285,11 @@ async function handleContactSubmit(event) {
     return;
   }
 
+  if (!WEB3FORMS_ACCESS_KEY) {
+    setFormStatus('Web3Forms access key is not configured. Add VITE_WEB3FORMS_ACCESS_KEY to your .env file.', 'error');
+    return;
+  }
+
   const submitLabel = formSubmitBtn.querySelector('span');
   const originalText = submitLabel ? submitLabel.textContent : 'SENDING';
 
@@ -307,13 +299,22 @@ async function handleContactSubmit(event) {
 
   try {
     const formData = new FormData(contactForm);
-    formData.set('_subject', `New Portfolio Inquiry from ${formData.get('name')}`);
-    contactForm.action = CONTACT_FORM_ENDPOINT;
+    const payload = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      name: String(formData.get('name') || '').trim(),
+      email: String(formData.get('email') || '').trim(),
+      phone: String(formData.get('phone') || '').trim(),
+      subject: String(formData.get('subject') || '').trim(),
+      message: String(formData.get('message') || '').trim(),
+    };
 
-    const response = await fetch(contactForm.action, {
+    const response = await fetch(WEB3FORMS_ENDPOINT, {
       method: 'POST',
-      headers: { Accept: 'application/json' },
-      body: formData,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(payload),
     });
 
     const data = await response.json().catch(() => ({}));
@@ -322,6 +323,11 @@ async function handleContactSubmit(event) {
     if (response.ok && success) {
       setFormStatus('Message Sent Successfully! Thank you for reaching out. I\'ll get back to you as soon as possible.', 'success');
       contactForm.reset();
+      contactForm.querySelectorAll('.field-group').forEach((group) => {
+        group.classList.remove('invalid');
+        const errorNode = group.querySelector('.field-error');
+        if (errorNode) errorNode.textContent = '';
+      });
     } else {
       setFormStatus('Unable to send your message. Please try again or contact me directly by email.', 'error');
     }
@@ -369,7 +375,6 @@ function initEvents() {
   window.addEventListener('scroll', updateScrollPosition, { passive: true });
 
   if (contactForm) {
-    contactForm.action = CONTACT_FORM_ENDPOINT;
     contactForm.addEventListener('submit', handleContactSubmit);
 
     contactForm.querySelectorAll('input, textarea').forEach((field) => {
@@ -379,14 +384,6 @@ function initEvents() {
     });
   }
 
-  // Fit Mode Toggle
-  if (btnFitMode) {
-    btnFitMode.addEventListener('click', () => {
-      state.fitMode = state.fitMode === 'cover' ? 'contain' : 'cover';
-      lblFitMode.textContent = state.fitMode === 'cover' ? 'Cover' : 'Contain';
-      drawFrame(Math.round(state.currentFrame));
-    });
-  }
 }
 
 /**

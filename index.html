@@ -62,11 +62,6 @@
           <span class="scroll-arrow">↓</span>
         </div>
 
-        <div class="hud-controls">
-          <button id="btn-fit-mode" class="hud-btn hud-btn-icon" title="Toggle Canvas Mode (Cover/Contain)">
-            <span id="lbl-fit-mode">Cover</span>
-          </button>
-        </div>
       </div>
 
       <!-- Mobile Hamburger Toggle -->
@@ -445,45 +440,40 @@
               </div>
             </div>
 
-            <form id="contact-form" class="contact-form glass-card" action="https://formsubmit.co/ajax/mansurimohammedrushan@gmail.com" method="POST" novalidate>
-              <input type="hidden" name="_captcha" value="false">
-              <input type="hidden" name="_template" value="table">
-              <input type="hidden" name="_subject" value="New Portfolio Inquiry">
-              <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off">
-
+            <form id="contact-form" class="contact-form glass-card" novalidate>
               <div class="form-header">
                 <span class="section-tag">CONTACT FORM</span>
                 <h3 class="form-title">SEND A MESSAGE</h3>
               </div>
 
               <div class="form-grid">
-                <label class="field-group">
+                <label class="field-group" for="contact-name">
                   <span>FULL NAME</span>
-                  <input type="text" name="name" placeholder="Enter your name" required>
+                  <input id="contact-name" type="text" name="name" placeholder="Enter your name" required>
                   <small class="field-error"></small>
                 </label>
 
-                <label class="field-group">
+                <label class="field-group" for="contact-email">
                   <span>EMAIL ADDRESS</span>
-                  <input type="email" name="email" placeholder="Enter your email" required>
+                  <input id="contact-email" type="email" name="email" placeholder="Enter your email" required>
                   <small class="field-error"></small>
                 </label>
 
-                <label class="field-group">
+                <label class="field-group" for="contact-phone">
                   <span>PHONE NUMBER</span>
-                  <input type="tel" name="phone" placeholder="Enter your phone number">
+                  <input id="contact-phone" type="tel" name="phone" placeholder="Enter your phone number">
                   <small class="field-error"></small>
                 </label>
 
-                <label class="field-group">
+                <label class="field-group" for="contact-subject">
                   <span>SUBJECT</span>
-                  <input type="text" name="subject" placeholder="What is this about?" required>
+                  <input id="contact-subject" type="text" name="subject" placeholder="What is this about?" required>
                   <small class="field-error"></small>
                 </label>
 
-                <label class="field-group field-group-full">
+                <label class="field-group field-group-full" for="contact-message">
                   <span>MESSAGE</span>
-                  <textarea name="message" placeholder="Tell me about your project or message..." rows="5" required></textarea>
+                  <textarea id="contact-message" name="message" placeholder="Tell me about your project or message..." rows="5" required></textarea>
                   <small class="field-error"></small>
                 </label>
               </div>
