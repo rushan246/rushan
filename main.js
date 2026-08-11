@@ -32,6 +32,12 @@ const modalClose = document.getElementById('modal-close');
 const btnViewSofaloom = document.getElementById('btn-view-sofaloom');
 const btnOpenModalCard = document.getElementById('btn-open-modal-card');
 
+// Contact form
+const CONTACT_FORM_ENDPOINT = import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'https://formsubmit.co/ajax/mansurimohammedrushan@gmail.com';
+const contactForm = document.getElementById('contact-form');
+const formSubmitBtn = contactForm ? contactForm.querySelector('.submit-btn') : null;
+const formStatus = contactForm ? contactForm.querySelector('.form-status') : null;
+
 /**
  * Preload 240 WebP Canvas Background Frames
  */
@@ -211,6 +217,122 @@ function initModal() {
   }
 }
 
+function setFormStatus(message, type = 'info') {
+  if (!formStatus) return;
+  formStatus.textContent = message;
+  formStatus.className = 'form-status';
+  if (type === 'success') formStatus.classList.add('success');
+  if (type === 'error') formStatus.classList.add('error');
+}
+
+function getFieldError(name, value) {
+  const trimmed = value.trim();
+
+  if (name === 'name') {
+    if (!trimmed) return 'Please enter your name.';
+    if (trimmed.length < 2) return 'Name must be at least 2 characters.';
+  }
+
+  if (name === 'email') {
+    if (!trimmed) return 'Please enter your email address.';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmed)) return 'Please enter a valid email address.';
+  }
+
+  if (name === 'phone' && trimmed) {
+    const phoneRegex = /^[+]?[(]?[0-9\s()-]{7,20}$/;
+    if (!phoneRegex.test(trimmed)) return 'Please enter a valid phone number.';
+  }
+
+  if (name === 'subject') {
+    if (!trimmed) return 'Please enter a subject.';
+  }
+
+  if (name === 'message') {
+    if (!trimmed) return 'Please enter your message.';
+    if (trimmed.length < 10) return 'Message must be at least 10 characters.';
+  }
+
+  return '';
+}
+
+function validateField(input) {
+  const fieldName = input.name;
+  const error = getFieldError(fieldName, input.value);
+  const fieldGroup = input.closest('.field-group');
+  const errorNode = fieldGroup ? fieldGroup.querySelector('.field-error') : null;
+
+  if (fieldGroup) {
+    fieldGroup.classList.toggle('invalid', Boolean(error));
+  }
+
+  if (errorNode) {
+    errorNode.textContent = error;
+  }
+
+  return !error;
+}
+
+function validateContactForm() {
+  if (!contactForm) return true;
+
+  let isValid = true;
+  const fields = contactForm.querySelectorAll('input, textarea');
+
+  fields.forEach((field) => {
+    if (field.name === '_honey') return;
+    const valid = validateField(field);
+    if (!valid) isValid = false;
+  });
+
+  return isValid;
+}
+
+async function handleContactSubmit(event) {
+  event.preventDefault();
+
+  if (!contactForm || !formSubmitBtn) return;
+
+  if (!validateContactForm()) {
+    setFormStatus('Please correct the highlighted fields and try again.', 'error');
+    return;
+  }
+
+  const submitLabel = formSubmitBtn.querySelector('span');
+  const originalText = submitLabel ? submitLabel.textContent : 'SENDING';
+
+  if (submitLabel) submitLabel.textContent = 'SENDING...';
+  formSubmitBtn.disabled = true;
+  setFormStatus('Sending your message...', 'info');
+
+  try {
+    const formData = new FormData(contactForm);
+    formData.set('_subject', `New Portfolio Inquiry from ${formData.get('name')}`);
+    contactForm.action = CONTACT_FORM_ENDPOINT;
+
+    const response = await fetch(contactForm.action, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: formData,
+    });
+
+    const data = await response.json().catch(() => ({}));
+    const success = data.success === true || data.success === 'true';
+
+    if (response.ok && success) {
+      setFormStatus('Message Sent Successfully! Thank you for reaching out. I\'ll get back to you as soon as possible.', 'success');
+      contactForm.reset();
+    } else {
+      setFormStatus('Unable to send your message. Please try again or contact me directly by email.', 'error');
+    }
+  } catch (error) {
+    setFormStatus('Unable to send your message. Please try again or contact me directly by email.', 'error');
+  } finally {
+    if (submitLabel) submitLabel.textContent = originalText;
+    formSubmitBtn.disabled = false;
+  }
+}
+
 function openModal() {
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -245,6 +367,17 @@ function initMobileMenu() {
 function initEvents() {
   window.addEventListener('resize', resizeCanvas);
   window.addEventListener('scroll', updateScrollPosition, { passive: true });
+
+  if (contactForm) {
+    contactForm.action = CONTACT_FORM_ENDPOINT;
+    contactForm.addEventListener('submit', handleContactSubmit);
+
+    contactForm.querySelectorAll('input, textarea').forEach((field) => {
+      if (field.name === '_honey') return;
+      field.addEventListener('input', () => validateField(field));
+      field.addEventListener('blur', () => validateField(field));
+    });
+  }
 
   // Fit Mode Toggle
   if (btnFitMode) {
